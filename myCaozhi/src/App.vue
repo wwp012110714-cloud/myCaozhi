@@ -11,7 +11,7 @@ const currentTheme = ref('light')
 const currentQuote = ref('')
 
 onMounted(() => {
-  fetch('http://106.13.165.42/data?id=2529105')
+  fetch('https://106.13.165.42/data?id=2529105')
     .then(res => res.text())
     .then(text => {
       try {
