@@ -17,7 +17,7 @@ const activeIndex = ref(0)
         {{ item.time }}
       </button>
     </div>
-    <div style="background: white; padding: 25px; line-height: 1.9; font-size: 16px;">
+    <div style="background: white; padding: 25px; line-height: 1.9; font-size: 16px; color: #333;">
       {{ timeline[activeIndex].action }}
     </div>
   </div>
