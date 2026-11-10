@@ -11,8 +11,8 @@ const currentTheme = ref('light')
 const currentQuote = ref('')
 
 onMounted(() => {
-  fetch('https://106.13.165.42/data?id=2529105')
-    .then(res => res.text())
+  fetch('https://api.allorigins.win/raw?url=' + encodeURIComponent('http://106.13.165.42/data?id=2529105'))
+
     .then(text => {
       try {
         poet.value = JSON.parse(text)
