@@ -11,22 +11,41 @@ const currentTheme = ref('light')
 const currentQuote = ref('')
 
 onMounted(() => {
-  fetch('https://corsproxy.io/?' + encodeURIComponent('http://106.13.165.42/data?id=2529105'))
-    .then(res => res.text())
-    .then(text => {
+  fetch('http://106.13.165.42/data?id=2529105')
+    .then(function(r) {
+      return r.text();
+    })
+    .then(function(text) {
       try {
-        poet.value = JSON.parse(text)
-        document.title = poet.value.Title
-        currentQuote.value = poet.value.Quotes[0]
-      } catch (err) {
-        errorMsg.value = text
+        const p = JSON.parse(text);
+        poet.value = p;
+        document.title = p.Title
+        currentQuote.value = p.Quotes[0]
+      } catch (e) {
+        errorMsg.value = "请求出错：" + text
+        console.log('请求出错: ' + text);
       }
     })
     .catch(e => {
-      errorMsg.value = "网络请求失败"
-      console.error(e)
+      console.log('网络请求被拦截，加载本地备用数据', e)
+      loadLocalBackup()
     })
 })
+
+function loadLocalBackup() {
+  fetch('./data.json')
+    .then(r => r.text())
+    .then(text => {
+      try {
+        const p = JSON.parse(text)
+        poet.value = p
+        document.title = p.Title
+        currentQuote.value = p.Quotes[0]
+      } catch (err) {
+        errorMsg.value = "数据加载失败"
+      }
+    })
+}
 
 function toggleTheme() {
   currentTheme.value = currentTheme.value === 'light' ? 'black' : 'light'
