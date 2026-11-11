@@ -33,7 +33,7 @@ onMounted(() => {
 })
 
 function loadLocalBackup() {
-  fetch('./data.json')
+  fetch('/myCaozhi/data.json')
     .then(r => r.text())
     .then(text => {
       try {
